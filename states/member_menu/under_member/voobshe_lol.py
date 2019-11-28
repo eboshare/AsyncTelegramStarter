@@ -1,4 +1,5 @@
 from typing import Optional
+
 from aiogram.types import Message
 
 from utils.special_types import StateFunction
