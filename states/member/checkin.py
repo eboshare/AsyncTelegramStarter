@@ -7,5 +7,5 @@ from preparation import dispatcher as dp
 
 
 @dp.state_handler
-async def lalala_function(message: Message) -> Optional[StateFunction]:
+async def checkin_menu(message: Message) -> Optional[StateFunction]:
     pass
