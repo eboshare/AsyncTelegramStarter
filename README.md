@@ -1,24 +1,32 @@
 # AsyncTelegramStarter
 
 
-### Как протестировать
+### How to test
 
-0. Нужно иметь `python3.7.5`.
+- python3.7 is needed
 
-1. Установить зависимости.
+- Install requirements.
     ```bash
     pip3 install -r requirements.txt
     ```
 
-2. Добавить файл `config.json` на верхний уровень рядом с файлом `config_example.json`.
-  Структура должна быть как в файле примере конфига.
-    ```json
-    {
-        "token": "TOKEN_FROM_BOTFATHER",
-        "proxy": null
-    }
+- Add the file `config.py` on the top level next to `config_example.json`
+    The structure must be the same as in the example file.
+
+- You can change states, their order etc. in the `states` folder. But you need to always have the one state with the argument `primary_state=True` (example: `@dp.state_handler(primary_state=True)`). This configures the primary state which value is `None` and the whole process begins with it.
+
+- Run `bot.py` file.
+
+- - -
+
+- By the way in the `preparation.py` file `utils.storage.MotorStorage` is used.
+    ```python
+    mongo_client = AsyncIOMotorClient(config.mongo.uri)
+    storage = MotorStorage(
+        mongo_client=mongo_client,
+        mongo_database=mongo_client[config.mongo.database]
+    )
+
+    dispatcher = AiogramBasedDispatcher(bot=bot, storage=storage)
     ```
-
-3. Запустить файл `bot.py` и всё будет работать.
-
-4. Можно менять состояния, их порядок и т.д. в папке `states` когда бот выключен, главное чтобы всегда было какое-то одно c аргументов `primary_state=True` в `state_handler` (пример: `@dp.state_handler(primary_state=True)`), его значение равно `None` с него будет начинаться вся работа.
+    If you don't want to use it you can use `aiogram.contrib.fsm_storage.memory.MemoryStorage` as a test storage.

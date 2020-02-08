@@ -1,37 +1,27 @@
 import ujson
 
 from aiogram import Bot
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from addict import Dict
+from motor.motor_asyncio import AsyncIOMotorClient
 
-
-from utils.dispatcher import Dispatcher, AiogramBasedDispatcher
-from utils.database import Database
+from utils.dispatcher import AiogramBasedDispatcher
+from utils.storage import MotorStorage
 
 
 CONFIG_PATH = 'config.json'
-
 with open(CONFIG_PATH) as json_:
     config = Dict(ujson.load(json_))
 
 
 bot = Bot(
-    token=config.token,
-    proxy=config.proxy,
+    token=config.bot.token,
+    proxy=config.bot.proxy
 )
 
-database = Database()
-
-# dispatcher = Dispatcher(
-#     db=database,
-#     bot=bot
-# )
-
-
-storage = MemoryStorage()
-
-dispatcher = AiogramBasedDispatcher(
-    # db=database,
-    bot=bot,
-    storage=storage,
+mongo_client = AsyncIOMotorClient(config.mongo.uri)
+storage = MotorStorage(
+    mongo_client=mongo_client,
+    mongo_database=mongo_client[config.mongo.database]
 )
+
+dispatcher = AiogramBasedDispatcher(bot=bot, storage=storage)
