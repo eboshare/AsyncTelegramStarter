@@ -1,3 +1,4 @@
+import importlib
 from typing import (
     Any,
     # List,
@@ -20,8 +21,9 @@ from utils import tools
 
 def py_file_names(path: Path, suffix: str = '.py') -> Iterator[str]:
     for item in path.rglob(f'*{suffix}'):
-        string_path = str(item)
-        yield string_path.replace('.py', '').replace('/', '.')
+        if item.is_file():
+            string_path = str(item)
+            yield string_path.replace('.py', '').replace('/', '.')
 
 
 class AiogramBasedDispatcher(aiogram.Dispatcher):
@@ -72,7 +74,7 @@ class AiogramBasedDispatcher(aiogram.Dispatcher):
     def __import_states(self) -> None:
         path = Path(self.__states_directory)
         for name in py_file_names(path):
-            __import__(name)
+            importlib.import_module(name=name)
 
     async def start_polling(self, *args: Any, **kwargs: Any) -> Any:
         self.__import_states()
