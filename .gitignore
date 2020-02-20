@@ -1,0 +1,9 @@
+__*
+.history
+.vscode
+
+# python3 -m venv env
+env
+
+# token, proxy, etc.
+config.json
