@@ -14,6 +14,7 @@
     The structure must be the same as in the example file.
 
 - You can change states, their order etc. in the `states` folder. But you need to always have the one state with the argument `primary_state=True` (example: `@dp.state_handler(primary_state=True)`). This configures the primary state which value is `None` and the whole process begins with it.
+    - Note that the names of modules and folders for states must follow python modules naming conventions, and finally you might want to use them in import statements.
 
 - Run `bot.py` file.
 

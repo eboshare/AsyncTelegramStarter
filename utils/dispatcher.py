@@ -19,11 +19,13 @@ from types import FunctionType
 from utils import tools
 
 
-def py_file_names(path: Path, suffix: str = '.py') -> Iterator[str]:
+def module_names(path: Path, suffix: str = '.py') -> Iterator[str]:
+    suffix_length = len(suffix)
     for item in path.rglob(f'*{suffix}'):
         if item.is_file():
-            string_path = str(item)
-            yield string_path.replace('.py', '').replace('/', '.')
+            parts = list(item.parts)
+            parts[-1] = item.name[:-suffix_length]  # cut off suffix
+            yield '.'.join(parts)
 
 
 class AiogramBasedDispatcher(aiogram.Dispatcher):
@@ -73,7 +75,7 @@ class AiogramBasedDispatcher(aiogram.Dispatcher):
 
     def __import_states(self) -> None:
         path = Path(self.__states_directory)
-        for name in py_file_names(path):
+        for name in module_names(path):
             importlib.import_module(name=name)
 
     async def start_polling(self, *args: Any, **kwargs: Any) -> Any:
