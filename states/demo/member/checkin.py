@@ -4,10 +4,10 @@ from aiogram.types import Message
 
 from utils.special_types import StateFunction
 from preparation import dispatcher as dp
-import states.admin
+import states.demo.admin
 
 
-@dp.state_handler(bound_handler=dp.message_handler)
+@dp.state_handler(bound=dp.message_handler)
 async def checkin_menu(message: Message) -> Optional[StateFunction]:
     await message.answer('STATE-3')
-    return states.admin.admin_menu
+    return states.demo.admin.admin_menu

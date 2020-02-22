@@ -54,7 +54,7 @@ class AiogramBasedDispatcher(aiogram.Dispatcher):
             self,
             *,
             primary_state: bool = False,
-            bound_handler: FunctionType = aiogram.Dispatcher.message_handler,
+            bound: FunctionType = aiogram.Dispatcher.message_handler,
             **kwargs: Any) -> FunctionType:
 
         def wrapper(callback: FunctionType) -> FunctionType:
@@ -67,7 +67,7 @@ class AiogramBasedDispatcher(aiogram.Dispatcher):
                 states.append(None)
 
             for state in states:
-                handler = bound_handler(state=state, **kwargs)
+                handler = bound(state=state, **kwargs)
                 result = handler(callback)
             return result
 
