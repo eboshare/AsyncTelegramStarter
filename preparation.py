@@ -15,7 +15,8 @@ with open(CONFIG_PATH) as json_:
 
 bot = Bot(
     token=config.bot.token,
-    proxy=config.bot.proxy
+    proxy=config.bot.proxy,
+    parse_mode=config.bot.parse_mode,
 )
 
 mongo_client = AsyncIOMotorClient(config.mongo.uri)
