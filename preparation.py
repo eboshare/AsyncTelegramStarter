@@ -1,6 +1,6 @@
 import ujson
-
 from aiogram import Bot
+from jinja2 import Environment
 from addict import Dict
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -26,3 +26,5 @@ storage = MotorStorage(
 )
 
 dispatcher = AiogramBasedDispatcher(bot=bot, storage=storage)
+
+env = Environment(autoescape=True)

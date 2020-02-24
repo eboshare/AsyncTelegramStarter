@@ -1,4 +1,4 @@
-from aiogram.utils import executor
+from aiogram import executor
 
 from preparation import dispatcher as dp
 

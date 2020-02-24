@@ -1,3 +1,4 @@
+import logging
 import importlib
 from typing import (
     Any,
@@ -17,6 +18,9 @@ import aiogram
 from types import FunctionType
 
 from utils import tools
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 def module_names(path: Path, suffix: str = '.py') -> Iterator[str]:

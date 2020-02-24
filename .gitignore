@@ -5,5 +5,8 @@ __*
 # python3 -m venv env
 env
 
-# token, proxy, etc.
+# token, proxy, etc., see config_example.json
 config.json
+
+settings
+utils/yaml_tuning.py
