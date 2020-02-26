@@ -3,11 +3,11 @@
 
 ### How to test
 
-- python3.7 is needed
+- [python3.7](https://www.python.org/) and [poetry](https://github.com/python-poetry/poetry) are needed
 
-- Install requirements.
+- Install dependences
     ```bash
-    pip3 install -r requirements.txt
+    poetry install
     ```
 
 - Add the file `config.py` on the top level next to `config_example.json`
@@ -17,8 +17,12 @@
     - Note that the names of modules and folders for states must follow python modules naming conventions, and finally you might want to use them in import statements.
 
 - Run `bot.py` file.
+    ```bash
+    poetry run bot.py
+    ```
 
 - - -
+
 
 - By the way in the `preparation.py` file `utils.storage.MotorStorage` is used.
     ```python
